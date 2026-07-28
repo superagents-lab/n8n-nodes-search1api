@@ -1,19 +1,29 @@
 {
-	"name": "n8n-nodes-<...>",
+	"name": "n8n-nodes-search1api",
 	"version": "0.1.0",
-	"description": "",
+	"description": "Search and retrieve live public web content with Search1API in n8n workflows.",
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "https://www.search1api.com",
 	"keywords": [
-		"n8n-community-node-package"
+		"n8n-community-node-package",
+		"n8n",
+		"search",
+		"web-search",
+		"news",
+		"crawl",
+		"research",
+		"search1api"
 	],
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "Search1API",
+		"email": "sys@search1api.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/<...>/n8n-nodes-<...>.git"
+		"url": "https://github.com/superagents-lab/n8n-nodes-search1api.git"
+	},
+	"bugs": {
+		"url": "https://github.com/superagents-lab/n8n-nodes-search1api/issues"
 	},
 	"scripts": {
 		"build": "n8n-node build",
@@ -31,16 +41,14 @@
 		"n8nNodesApiVersion": 1,
 		"strict": true,
 		"credentials": [
-			"dist/credentials/GithubIssuesApi.credentials.js",
-			"dist/credentials/GithubIssuesOAuth2Api.credentials.js"
+			"dist/credentials/Search1Api.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/GithubIssues/GithubIssues.node.js",
-			"dist/nodes/Example/Example.node.js"
+			"dist/nodes/Search1Api/Search1Api.node.js"
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "*",
+		"@n8n/node-cli": "^0.41.2",
 		"eslint": "9.39.4",
 		"prettier": "3.8.3",
 		"release-it": "20.2.0",

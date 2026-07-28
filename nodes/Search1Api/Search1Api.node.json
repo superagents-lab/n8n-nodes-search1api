@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-search1api",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Development", "Data & Storage"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://www.search1api.com/docs"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://www.search1api.com/docs"
+			}
+		]
+	}
+}
