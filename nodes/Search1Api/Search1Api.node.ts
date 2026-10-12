@@ -3,8 +3,10 @@ import { NodeConnectionTypes, type INodeType, type INodeTypeDescription } from '
 const searchServiceOptions = [
 	{ name: 'Google', value: 'google' },
 	{ name: 'Bing', value: 'bing' },
+	{ name: 'Bing China', value: 'bingcn' },
 	{ name: 'DuckDuckGo', value: 'duckduckgo' },
 	{ name: 'Yahoo', value: 'yahoo' },
+	{ name: 'Yandex', value: 'yandex' },
 	{ name: 'Reddit', value: 'reddit' },
 	{ name: 'GitHub', value: 'github' },
 	{ name: 'YouTube', value: 'youtube' },
@@ -15,7 +17,7 @@ const searchServiceOptions = [
 	{ name: 'Bilibili', value: 'bilibili' },
 	{ name: 'IMDb', value: 'imdb' },
 	{ name: 'Baidu', value: 'baidu' },
-	{ name: 'Sogou', value: 'sogou' },
+	{ name: 'Grokipedia', value: 'grokipedia' },
 	{ name: '360 Search', value: '360' },
 	{ name: 'Quark', value: 'quark' },
 ];
@@ -75,6 +77,7 @@ export class Search1Api implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 				options: [
+					{ name: 'Agentic Search', value: 'ask' },
 					{
 						name: 'News Search',
 						value: 'newsSearch',
@@ -101,6 +104,23 @@ export class Search1Api implements INodeType {
 					},
 				],
 				default: 'webSearch',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['ask'] } },
+				options: [
+					{
+						name: 'Search',
+						value: 'search',
+						action: 'Search with automatic routing',
+						description: 'Choose engines and time window automatically (5 credits per call)',
+						routing: { request: { method: 'POST', url: '/ask', timeout: 45000 } },
+					},
+				],
+				default: 'search',
 			},
 			{
 				displayName: 'Operation',
@@ -266,11 +286,12 @@ export class Search1Api implements INodeType {
 				required: true,
 				displayOptions: {
 					show: {
-						resource: ['webSearch', 'newsSearch'],
+						resource: ['webSearch', 'newsSearch', 'ask'],
 					},
 				},
 				placeholder: 'e.g. latest AI agent frameworks',
-				description: 'The search query',
+				description:
+					'Keywords for search or news, or a natural-language request for Agentic Search',
 				routing: {
 					send: {
 						type: 'body',
@@ -337,6 +358,16 @@ export class Search1Api implements INodeType {
 						property: 'max_results',
 					},
 				},
+			},
+			{
+				displayName: 'Page',
+				name: 'page',
+				type: 'number',
+				default: 1,
+				typeOptions: { minValue: 1, maxValue: 100 },
+				displayOptions: { show: { resource: ['webSearch'] } },
+				description: 'Results page for engines with native pagination',
+				routing: { send: { type: 'body', property: 'page' } },
 			},
 			{
 				displayName: 'Options',

@@ -32,3 +32,6 @@ jobs:
 
       - name: Run build
         run: npm run build
+
+      - name: Run contract tests
+        run: node --test tests/*.test.cjs

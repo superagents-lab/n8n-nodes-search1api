@@ -70,7 +70,7 @@ passed to later workflow steps.
 
 ## Resources
 
-- [Search1API documentation](https://www.search1api.com/docs)
+- [Search1API documentation](https://s1.dev/docs)
 - [Search1API website](https://www.search1api.com)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [Issues and support](https://github.com/superagents-lab/n8n-nodes-search1api/issues)
@@ -86,3 +86,29 @@ support.
 ## License
 
 [MIT](LICENSE.md)
+
+
+## Current API capabilities
+
+Search supports `bingcn`, `yandex`, and `grokipedia`; the removed `sogou`
+engine is no longer offered. Search and news support `day`, `week`, `month`,
+and `year` time ranges. Search also accepts `page` on engines with native
+pagination.
+
+Agentic Search (`ask`) accepts only a natural-language `query`. The server
+chooses the engines and time window and returns `query`, `intent`, ranked
+`results`, and `errors`. Each Ask result includes its `source` and `relevance`.
+It returns search results, not a generated answer, and costs **5 credits per
+call**. Use regular search when the engine and keywords are already known.
+
+Search/news engine-specific attributes live inside each result's optional
+`metadata`: GitHub uses `kind`, `stars`, `language`, and `num_comments`;
+Hacker News news results use `story_url`, `points`, and `num_comments`.
+`published_date` remains optional at the result top level. Numeric zero counts
+are preserved; unavailable attributes are omitted. When displaying Grokipedia
+results, credit them as "Powered by xAI".
+
+Select **Agentic Search** as the node resource. Only the query field is shown;
+manual engine, count, time, and crawl controls do not apply. The request uses a
+45-second timeout. Outputs preserve the API JSON envelope, so access attributes
+with expressions such as `{{$json.results[0].metadata.stars}}`.

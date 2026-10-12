@@ -16,7 +16,7 @@ export class Search1Api implements ICredentialType {
 		dark: 'file:../nodes/Search1Api/search1api.dark.svg',
 	};
 
-	documentationUrl = 'https://www.search1api.com/docs';
+	documentationUrl = 'https://s1.dev/docs';
 
 	properties: INodeProperties[] = [
 		{
